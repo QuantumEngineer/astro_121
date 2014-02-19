@@ -1,0 +1,26 @@
+import numpy as np 
+import pylab as py 
+
+def dft(filename,sampfreq):
+    data = np.load(filename)['arr_0']
+    N =len(data)
+    delt = 1./sampfreq
+    T = (N-1)*delt
+    t = np.arange(-T/2.0,T/2.0 + delt,delt)
+    nu = np.arange(-sampfreq/2.0,(sampfreq/2.0)*(1.0-2./N)+sampfreq/N,sampfreq/N)
+    E_nu = []
+    for n in nu:
+        integr = 0 
+        for i in t:
+            integr += data[i+T/(2.0)]*np.exp(2j*i*np.pi*n)*delt
+        E_nu.append(integr) 
+    E_nu = np.abs(E_nu)**2
+    return {'nu':nu,'E_nu':E_nu}
+
+filename = '0.5vsample_10MHz.npz' 
+data = dft(filename,1e7)
+nu = data['nu']/1e6
+E_nu = data['E_nu']
+print len(E_nu)
+py.plot(nu,E_nu)
+py.show()
