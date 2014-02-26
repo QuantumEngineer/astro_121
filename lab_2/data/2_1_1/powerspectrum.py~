@@ -1,0 +1,18 @@
+import numpy as np
+import pylab as py 
+import radiolab as rd
+
+N = 2.0**14
+vsample = 10.0e3
+delt = N/vsample
+time_array = np.arange(0,delt,1./vsample)
+print len(time_array)
+filename= "vsig_1050000.0.npz" 
+
+data = np.load(filename)["arr_0"]
+nu = np.fft.fftfreq(2.0**14,1/(1.0e6))
+
+x = np.fft.fft(data) 
+
+py.plot(x)
+py.show()
