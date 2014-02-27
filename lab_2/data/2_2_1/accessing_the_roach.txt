@@ -1,0 +1,11 @@
+ ssh root@roach.ugastro.berkeley.edu
+
+cd /boffiles
+
+[filename].bof &
+
+cd /proc/PID/hw/ioreg
+
+echo -ne "\x00\x00\x00\x01" > trig
+
+echo -ne "\x00\x00\x00\x00" > trig
