@@ -1,0 +1,6 @@
+import numpy as np
+import pylab as py 
+
+data = np.fromfile('sin_bram','>i')
+py.plot(data) 
+py.show()
